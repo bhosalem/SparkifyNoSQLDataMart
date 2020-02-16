@@ -4,8 +4,6 @@ import cassandra
 from cassandra.cluster import Cluster
 from sparkify_nosql_create_tables import create_keyspace
 from sparkify_nosql_queries import select_queries,select_music_hist_in_session
-#select_music_hist_in_session,select_user_info_in_session,select_users_listening_song
-
 
 def run_query(session,query):
     print('========================================================================================================\n')
@@ -20,7 +18,6 @@ def run_query(session,query):
     
 def main():
     cluster,session=create_keyspace()
-    #run_query(session,select_music_hist_in_session)
     for query in select_queries:
         run_query(session,query)
     session.shutdown()
