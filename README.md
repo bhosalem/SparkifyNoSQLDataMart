@@ -34,6 +34,6 @@ Run the python scripts mentioned below in console
 
 # Query output
 Refer below the output of three queries in question for this project.
-![select statement outputs](images/Select_queries_output.PNG)
+![select statement outputs](Select_queries_output.PNG)
 
         
