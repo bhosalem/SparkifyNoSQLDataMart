@@ -14,6 +14,14 @@ from sparkify_nosql_queries import insert_queries,insert_music_hist_in_session,i
 file = 'event_datafile_new.csv'
 
 def read_files(filepath):
+    """This function parses the filepath creates list of all the files present in the directory.
+    Then reads all the files in the list and creates an intermediate denormalized dataset which will
+    be used to insert into the database tables
+    
+    input parameter : filepath where data csv files are stored
+    
+    returns : none
+    """
     file_count=1
     # Create a for loop to create a list of files and collect each filepath
     for root, dirs, files in os.walk(filepath):
@@ -50,6 +58,10 @@ def read_files(filepath):
             writer.writerow((row[0], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[12], row[13], row[16]))
 
 def insert_records(session):
+    """This function reads the file created in earlier step and loads into the database tables.
+    
+    input : session object to connect to cassandra db.
+    returns : none"""
     print('Now inserting records into analytics tables.')
     with open(file, encoding = 'utf8') as f:
         csvreader = csv.reader(f)
@@ -68,7 +80,7 @@ def insert_records(session):
                         print(e)
                         
                     try:
-                        session.execute(insert_users_listening_song,(line[9],line[1],line[4]))
+                        session.execute(insert_users_listening_song,(line[9],int(line[10]),line[1],line[4]))
                     except Exception as e:
                         print('Table insert for users listening to a song failed\n')
                         print(e)
