@@ -18,7 +18,7 @@ Data is events created in the music streaming app in the form of CSV files. As C
 ### 2. To fetch name of artist, song (sorted by itemInSession) and user (first and last name) for userid = 10, sessionid = 182
     As data needs to be filtered on userId and sessionId, we can start with userId as partition key as it gives good distribution of         data.But at the same time we need the data to be orted by itemInSession so clustering key will be used as a combination of               sessionId and itemInSession. Combination of userId,sessionId and iteminSession can identify rows uniquely.
 ### 3. To fetch every user name (first and last) in my music app history who listened to the song 'All Hands Against His Own'
-    Good starting point will be to use song as a partition key, as there could be multiple users listening to same song at any point         in time. Choosing song as a patition key also helps filter data on song and makes query simple.
+    Though,song can be used a primary key as it can identify rows uniquely and partition the data on songs it will be wise to use userid as a clustering key as there could be multiple users listening to same song at any point in time.
  
  ## ETL process
  As a part of ETL, following tasks will be performed by sparkify_nosql_etl.py script
@@ -31,6 +31,9 @@ Run the python scripts mentioned below in console
 1. Run script sparkify_nosql_create_tables.py : Creates Apache Cassandra keyspace and tables required to model queries
 2. Run script sparkify_nosql_etl.py : Extracts and loads data into tables
 3. run script sparkify_nosql_select.py : Runs the required select statements and displays results in console
- 
+
+# Query output
+Refer below the output of three queries in question for this project.
+![select statement outputs](images/Select_queries_output.PNG)
 
         
